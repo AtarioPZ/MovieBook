@@ -28,7 +28,7 @@ function PreNow() {
         const randomPage = Math.floor(Math.random() * 10) + 1;
         const randomIndex = Math.floor(Math.random() * 10) + 1;
 
-        const response = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=movie&type=movie&page=${randomPage}&totalResults=10`);
+        const response = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&s=movie&type=movie&page=${randomPage}&totalResults=10`);
         const data = await response.json();
 
         console.log('API Response:', data);

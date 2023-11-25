@@ -7,7 +7,7 @@ function RandomMovie() {
     const fetchRandomMovies = async () => {
       try {
         const apiKey = import.meta.env.VITE_OMDB_API_KEY;
-        const response = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=movie&type=movie&page=1&totalResults=100`);
+        const response = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&s=movie&type=movie&page=1&totalResults=100`);
         const data = await response.json();
 
         if (data.Search) {
