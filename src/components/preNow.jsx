@@ -11,6 +11,7 @@ function PreNow() {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [showFullPlot, setShowFullPlot] = useState(false);
+  const [loadingMovieId, setLoadingMovieId] = useState(null);
 
   useEffect(() => {
     const fetchPremieringNow = async () => {
@@ -48,15 +49,22 @@ function PreNow() {
   const handlePosterClick = async (movie) => {
     try {
       const apiKey = import.meta.env.VITE_OMDB_API_KEY;
+
+      // Show loading state for the clicked poster
+      setLoadingMovieId(movie.imdbID);
+
       const response = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${movie.imdbID}&plot=full`);
       const data = await response.json();
-  
+
       console.log('Detailed Movie Information:', data);
-  
+
       setSelectedMovie(data);
       setModalVisible(true);
     } catch (error) {
       console.error('Error fetching detailed movie information:', error);
+    } finally {
+      // Hide loading state
+      setLoadingMovieId(null);
     }
   };
 
@@ -89,6 +97,7 @@ function PreNow() {
           {movies.map((movie, index) => (
             <div key={index} className="col-md-2 mb-3">
               <div className="position-relative" onClick={() => handlePosterClick(movie)}>
+                {/* Poster image */}
                 <motion.div
                   whileHover="visible"
                   initial="hidden"
@@ -101,6 +110,15 @@ function PreNow() {
                     style={{ maxHeight: '100%', objectFit: 'cover' }}
                   />
                 </motion.div>
+
+                {/* Loading overlay */}
+                {loadingMovieId === movie.imdbID && (
+                  <div className="loading-overlay">
+                    <div className="spinner-border text-light" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           ))}
