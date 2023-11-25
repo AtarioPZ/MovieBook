@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function Footer() {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
   return (
     <footer className="bg-dark text-white mt-5">
       <div className="container py-5">
@@ -23,7 +33,9 @@ function Footer() {
               <div className="d-flex gap-2 align-items-center">
                 <label htmlFor="newsletter1" className="visually-hidden">Email address</label>
                 <input id="newsletter1" type="text" className="form-control" placeholder="Email address" />
-                <button className="btn btn-primary btn-sm" type="button">Subscribe</button>
+                <button className="btn btn-primary btn-sm" type="button" onClick={openModal}>
+                  Subscribe
+                </button>
               </div>
             </form>
           </div>
@@ -38,6 +50,28 @@ function Footer() {
           </ul>
         </div>
       </div>
+
+      {/* Modal */}
+      {modalVisible && (
+        <div className="modal" tabIndex="-1" style={{ display: 'block' }}>
+          <div className="modal-dialog" style={{ margin: 'auto', top: '50%', transform: 'translateY(-50%)' }}>
+            <div className="modal-content" style={{ background: 'linear-gradient(45deg, #000000, #434343)', color: '#fff' }}>
+              <div className="modal-header">
+                <h5 className="modal-title">Notice</h5>
+                <button type="button" className="btn-close" onClick={closeModal}></button>
+              </div>
+              <div className="modal-body">
+                <p>This button does nothing at the moment.</p>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" onClick={closeModal}>
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </footer>
   );
 }
