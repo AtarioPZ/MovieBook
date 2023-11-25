@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function NavBar() {
     return (
@@ -9,8 +10,8 @@ function NavBar() {
                         <img src='https://i.ibb.co/hsZC3P7/logo.png' alt="mdo" width="32" height="32" className="rounded-circle"/>
                     </a>
                     <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><a href="#" className="nav-link px-2 text-secondary">Home</a></li>
-                        <li><a href="#" className="nav-link px-2 text-white">Rent</a></li>
+                        <li><Link to="/" className="nav-link px-2 text-secondary">Home</Link></li>
+                        <li><Link to="/rent" className="nav-link px-2 text-secondary">Rent</Link></li>                        
                     </ul>
 
                     <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">

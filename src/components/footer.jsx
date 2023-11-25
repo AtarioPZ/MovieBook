@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
@@ -8,8 +9,8 @@ function Footer() {
           <div className="col-md-6 mb-3">
             <h5>Quick Links</h5>
             <ul className="nav flex-column">
-              <li className="nav-item mb-2"><a href="#" className="nav-link text-white">Home</a></li>
-              <li className="nav-item mb-2"><a href="#" className="nav-link text-white">Rent</a></li>
+              <li className="nav-item mb-2"><Link to="/" className="nav-link text-white">Home</Link></li>
+              <li className="nav-item mb-2"><Link to="rent" className="nav-link text-white">Rent</Link></li>
             </ul>
           </div>
 

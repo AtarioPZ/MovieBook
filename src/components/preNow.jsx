@@ -24,8 +24,6 @@ function PreNow() {
         const response = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&s=movie&type=movie&page=${randomPage}&totalResults=10&plot=full`);
         const data = await response.json();
 
-        console.log('API Response:', data);
-
         if (data.Search) {
           setMovies(shuffleArray(data.Search.slice(0, 5)));
         }
@@ -55,8 +53,6 @@ function PreNow() {
 
       const response = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${movie.imdbID}&plot=full`);
       const data = await response.json();
-
-      console.log('Detailed Movie Information:', data);
 
       setSelectedMovie(data);
       setModalVisible(true);
