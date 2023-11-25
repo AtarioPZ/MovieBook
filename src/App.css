@@ -8,12 +8,13 @@ body, html {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(45deg, #a3908a, #5b8998);
+  color: white;
 }
 
 .app-container {
   
-  background: linear-gradient(45deg, #a3908a, #5b8998);
-  color: white;
+ 
   overflow: hidden;
 }
 
