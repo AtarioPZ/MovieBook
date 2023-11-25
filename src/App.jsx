@@ -2,16 +2,17 @@ import React from 'react';
 import NavBar from './components/navbar';
 import RandomMovie from './components/randomMovie';
 import PreNow from './components/preNow';
+import Footer from './components/footer';
 import './App.css';
 
 function App() {
   return (
-    <div className="app-container">
+    <div className="container">
       <NavBar />
-      <RandomMovie />
-      
+      <RandomMovie />      
       <PreNow />
-    </div>
+      <Footer />
+    </div>    
   );
 }
 
