@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 function RandomMovie() {
   const [movies, setMovies] = useState([]);
+  const [loadingMovies, setLoadingMovies] = useState(true);
 
   useEffect(() => {
     const fetchRandomMovies = async () => {
@@ -17,6 +19,9 @@ function RandomMovie() {
         }
       } catch (error) {
         console.error('Error fetching random movies:', error);
+      } finally {
+        // Set loading state to false once movies are loaded
+        setLoadingMovies(false);
       }
     };
 
@@ -35,40 +40,48 @@ function RandomMovie() {
 
   return (
     <div className="container m-3 shadow mx-auto">
-      <div id="myCarousel" className="carousel slide mb-6" data-bs-ride="carousel">
-        <div className="carousel-inner">
-          {movies.map((movie, index) => (
-            <div key={index} className={`carousel-item${index === 0 ? ' active' : ''}`}>
-              <div className="container">
-                <div className="row">
-                  <div className="col-md-6">
-                    <div className="carousel-caption text-start">
-                      <h1>{movie.Title}</h1>
-                      <p className="opacity-75">{movie.Year}</p>
+      {loadingMovies ? (
+        <div className="text-center w-100">
+          <div className="spinner-border text-dark" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      ) : (
+        <div id="myCarousel" className="carousel slide mb-6" data-bs-ride="carousel">
+          <div className="carousel-inner">
+            {movies.map((movie, index) => (
+              <div key={index} className={`carousel-item${index === 0 ? ' active' : ''}`}>
+                <div className="container">
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div className="carousel-caption text-start">
+                        <h1>{movie.Title}</h1>
+                        <p className="opacity-75">{movie.Year}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="col-md-6">
-                    <img
-                      src={movie.Poster}
-                      className="d-block  rounded"
-                      alt={`Movie ${index + 1}`}
-                      style={{ maxHeight: '300px' }}
-                    />
+                    <div className="col-md-6">
+                      <img
+                        src={movie.Poster}
+                        className="d-block  rounded"
+                        alt={`Movie ${index + 1}`}
+                        style={{ maxHeight: '300px' }}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <button className="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span className="visually-hidden">Previous</span>
+          </button>
+          <button className="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+            <span className="visually-hidden">Next</span>
+          </button>
         </div>
-        <button className="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span className="visually-hidden">Previous</span>
-        </button>
-        <button className="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-          <span className="carousel-control-next-icon" aria-hidden="true"></span>
-          <span className="visually-hidden">Next</span>
-        </button>
-      </div>
+      )}
     </div>
   );
 }

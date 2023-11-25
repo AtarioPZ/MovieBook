@@ -12,6 +12,7 @@ function PreNow() {
   const [modalVisible, setModalVisible] = useState(false);
   const [showFullPlot, setShowFullPlot] = useState(false);
   const [loadingMovieId, setLoadingMovieId] = useState(null);
+  const [loadingMovies, setLoadingMovies] = useState(true);
 
   useEffect(() => {
     const fetchPremieringNow = async () => {
@@ -29,6 +30,9 @@ function PreNow() {
         }
       } catch (error) {
         console.error('Error fetching premiering now movies:', error);
+      } finally {
+        // Set loading state to false once movies are loaded
+        setLoadingMovies(false);
       }
     };
 
@@ -90,34 +94,42 @@ function PreNow() {
       </div>
       <div className="container mx-auto pb-3">
         <div className="row">
-          {movies.map((movie, index) => (
-            <div key={index} className="col-md-2 mb-3">
-              <div className="position-relative" onClick={() => handlePosterClick(movie)}>
-                {/* Poster image */}
-                <motion.div
-                  whileHover="visible"
-                  initial="hidden"
-                  variants={variants}
-                >
-                  <img
-                    src={movie.Poster}
-                    alt={`Movie ${index + 1}`}
-                    className="d-block w-100 rounded"
-                    style={{ maxHeight: '100%', objectFit: 'cover' }}
-                  />
-                </motion.div>
-
-                {/* Loading overlay */}
-                {loadingMovieId === movie.imdbID && (
-                  <div className="loading-overlay">
-                    <div className="spinner-border text-light" role="status">
-                      <span className="visually-hidden">Loading...</span>
-                    </div>
-                  </div>
-                )}
+          {loadingMovies ? (
+            <div className="text-center w-100">
+              <div className="spinner-border text-light" role="status">
+                <span className="visually-hidden">Loading...</span>
               </div>
             </div>
-          ))}
+          ) : (
+            movies.map((movie, index) => (
+              <div key={index} className="col-md-2 mb-3">
+                <div className="position-relative" onClick={() => handlePosterClick(movie)}>
+                  {/* Poster image */}
+                  <motion.div
+                    whileHover="visible"
+                    initial="hidden"
+                    variants={variants}
+                  >
+                    <img
+                      src={movie.Poster}
+                      alt={`Movie ${index + 1}`}
+                      className="d-block w-100 rounded"
+                      style={{ maxHeight: '100%', objectFit: 'cover' }}
+                    />
+                  </motion.div>
+
+                  {/* Loading overlay */}
+                  {loadingMovieId === movie.imdbID && (
+                    <div className="loading-overlay">
+                      <div className="spinner-border text-light" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
 
@@ -157,7 +169,7 @@ function PreNow() {
                   </div>
                 </div>
                 <div className="modal-footer">
-                  <button type="button" className="btn btn-secondary">Book Now</button>
+                  <button type="button" className="btn btn-success">Book Now</button>
                 </div>
               </div>
             </div>
