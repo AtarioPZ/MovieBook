@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const variants = {
   hidden: { scale: 1 },
@@ -13,6 +14,7 @@ function PreNow() {
   const [showFullPlot, setShowFullPlot] = useState(false);
   const [loadingMovieId, setLoadingMovieId] = useState(null);
   const [loadingMovies, setLoadingMovies] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPremieringNow = async () => {
@@ -66,6 +68,10 @@ function PreNow() {
       // Hide loading state
       setLoadingMovieId(null);
     }
+  };
+
+  const handleBookNow = () => {
+    navigate(`/book/${selectedMovie.Title}/${selectedMovie.Year}`);
   };
 
   const togglePlotDisplay = () => {
@@ -169,7 +175,9 @@ function PreNow() {
                   </div>
                 </div>
                 <div className="modal-footer">
-                  <button type="button" className="btn btn-success">Book Now</button>
+                  <button type="button" className="btn btn-success" onClick={handleBookNow}>
+                    Book Now
+                  </button>
                 </div>
               </div>
             </div>
