@@ -13,3 +13,13 @@ body, html {
   flex-grow: 1;
   padding: 2rem;
 }
+
+.seat {
+  cursor: pointer;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.seat:hover {
+  background-color: #90EE90;
+}
