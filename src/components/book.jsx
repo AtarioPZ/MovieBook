@@ -36,10 +36,7 @@ function SeatBooking() {
 
   const handleCheckoutSubmit = (event) => {
     event.preventDefault();
-    // Add your checkout logic here
-    // For example, you can send the selectedSeats to a server for processing
     console.log('Checkout submitted:', selectedSeats);
-    // Reset the component after checkout
     setSelectedSeats([]);
     setSeatCount(1);
     setModalVisible(true);
@@ -142,7 +139,6 @@ function SeatBooking() {
               </label>
               <input type="email" className="form-control" id="email" required />
             </div>
-            {/* Add more checkout form fields as needed */}
             <button type="submit" className="btn btn-primary">
               Pay
             </button>
